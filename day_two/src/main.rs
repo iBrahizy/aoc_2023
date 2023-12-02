@@ -29,18 +29,16 @@ fn task_one() -> usize {
 
     // id will be -1 from the actual id
     for (id, line) in include_str!("../input.txt").lines().enumerate() {
-        let (counts, mut colours) = parse_line(line);
+        let (counts, colours) = parse_line(line);
 
-        if counts.into_iter().all(|x| {
-            x <= match colours
-                .next()
-                .expect("different number of colours to numbers")
-            {
-                "red" => MAX_RED,
-                "green" => MAX_GREEN,
-                "blue" => MAX_BLUE,
-                err => panic!("{err}"),
-            }
+        if counts.into_iter().zip(colours).all(|(count, colour)| {
+            count
+                <= match colour {
+                    "red" => MAX_RED,
+                    "green" => MAX_GREEN,
+                    "blue" => MAX_BLUE,
+                    err => panic!("{err}"),
+                }
         }) {
             sum += id + 1;
         }
@@ -64,23 +62,20 @@ fn task_two() -> u32 {
 
     // id will be -1 from the actual id
     for line in include_str!("../input.txt").lines() {
-        let (counts, mut colours) = parse_line(line);
+        let (counts, colours) = parse_line(line);
 
         let mut max_red = 0;
         let mut max_blue = 0;
         let mut max_green = 0;
 
-        for count in counts.into_iter() {
-            let colour = match colours
-                .next()
-                .expect("different number of colours to numbers")
-            {
+        for (count, colour) in counts.into_iter().zip(colours) {
+            let max_colour = match colour {
                 "red" => &mut max_red,
                 "green" => &mut max_green,
                 "blue" => &mut max_blue,
                 err => panic!("{err}"),
             };
-            *colour = (*colour).max(count);
+            *max_colour = (*max_colour).max(count);
         }
 
         sum += max_blue as u32 * max_red as u32 * max_green as u32;
