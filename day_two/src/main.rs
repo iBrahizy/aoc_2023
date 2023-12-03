@@ -1,6 +1,6 @@
 fn main() {
-    dbg!(task_one());
-    dbg!(task_two());
+    dbg!(part_one());
+    dbg!(part_two());
 }
 
 fn parse_line(
@@ -21,7 +21,7 @@ fn parse_line(
     (counts, colours)
 }
 
-fn task_one() -> usize {
+fn part_one() -> usize {
     const MAX_RED: u8 = 12;
     const MAX_GREEN: u8 = 13;
     const MAX_BLUE: u8 = 14;
@@ -57,7 +57,7 @@ fn cut(colour: &'static str) -> &'static str {
     }
 }
 
-fn task_two() -> u32 {
+fn part_two() -> u32 {
     let mut sum = 0;
 
     // id will be -1 from the actual id
