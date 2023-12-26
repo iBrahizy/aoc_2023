@@ -79,12 +79,9 @@ fn part_two() -> usize {
         }
     }
 
-	let mut nums = nums.into_iter();
-	let first = nums.next().unwrap();
-
-	nums.fold(first, |acc, e| {
+	nums.into_iter().reduce(|acc, e| {
 		acc.lowest_common_multiple(e)
-	})
+	}).unwrap()
 }
 
 trait Poggers {
